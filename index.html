@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<body>
+  <h2>AI анализ статьи</h2>
+
+  <textarea id="text" style="width:100%;height:300px;"></textarea>
+  <br>
+  <button onclick="analyze()">Анализировать</button>
+
+  <pre id="result"></pre>
+
+<script>
+async function analyze() {
+  const text = document.getElementById("text").value;
+  document.getElementById("result").innerText = "Анализ...";
+
+  const res = await fetch("/api/analyze", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ text })
+  });
+
+  const data = await res.json();
+  document.getElementById("result").innerText = data.result;
+}
+</script>
+
+</body>
+</html>
